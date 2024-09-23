@@ -1,10 +1,17 @@
-const Home: React.FC = () => {
+import Button from "../components/Button";
+import "./Home.css";
 
-    return(
-        <div>
-            <h1>Connect 4</h1>
-        </div>
-    );
+const Home: React.FC = () => {
+  return (
+    <div className="background">
+      <div className="container">
+        <h1>Connect 4</h1>
+        <Button text="Play" className="primary-button" onClick={()=>{
+            console.log("Button Clicked")
+        }}></Button>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
