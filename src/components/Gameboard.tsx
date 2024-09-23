@@ -1,8 +1,8 @@
 // src/GameBoard.tsx
 import React, { useState } from "react";
-import { Player} from "./interface/types";
-import Cell from "./components/Cell";
-import "./App.css";
+import { Player} from "../interface/types";
+import Cell from "./Cell";
+import "../App.css";
 
 const ROWS = 6;
 const COLUMNS = 7;

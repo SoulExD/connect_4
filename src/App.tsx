@@ -1,13 +1,11 @@
 import React from "react";
-import GameBoard from "./Gameboard";
-import "./App.css";
+import Home from "./pages/Home";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Connect 4</h1>
-      <GameBoard />
-    </div>
+    <>
+      <Home/>
+    </>
   );
 };
 
