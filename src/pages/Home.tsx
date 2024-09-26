@@ -1,13 +1,17 @@
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
 const Home: React.FC = () => {
+
+  const nav = useNavigate();
+
   return (
     <div className="background">
       <div className="container">
-        <h1>Connect 4</h1>
-        <Button text="Play" className="primary-button" onClick={()=>{
-            console.log("Button Clicked")
+        <h1>CONNECT 4</h1>
+        <Button text="PLAY" className="primary-button" onClick={()=>{
+            nav("/connect_4/game");
         }}></Button>
       </div>
     </div>

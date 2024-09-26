@@ -1,0 +1,61 @@
+
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .cell {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .button-text{
+    @apply text-2xl font-bold text-white font-sans
+
+  }
+
+  h2{
+    @apply text-2xl font-bold text-white font-sans
+  }
+  
+  .disc {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .disc.red {
+    background-color: red;
+  }
+  
+  .disc.yellow {
+    background-color: yellow;
+  }
+  
+  @keyframes scaleUpDown {
+    0% {
+      transform: scale(1); /* Original scale */
+    }
+    50% {
+      transform: scale(1.5); /* Scale up */
+    }
+    100% {
+      transform: scale(1); /* Back to original scale */
+    }
+  }
+
+  .scale-animation {
+    animation: scaleUpDown 0.5s ease-in-out forwards;
+  }
+

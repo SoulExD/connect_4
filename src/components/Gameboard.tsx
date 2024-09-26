@@ -1,8 +1,7 @@
-// src/GameBoard.tsx
 import React, { useState } from "react";
-import { Player} from "../interface/types";
+import { Player } from "../interface/types";
 import Cell from "./Cell";
-import "../App.css";
+import Popup from "./Popup";
 
 const ROWS = 6;
 const COLUMNS = 7;
@@ -13,15 +12,16 @@ const GameBoard: React.FC = () => {
   );
   const [currentPlayer, setCurrentPlayer] = useState<Player>("Red");
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
+  const [popupMessage, setPopupMessage] = useState<string | null>(null);
 
+  // Handle cell click
   const handleClick = (column: number) => {
     if (isGameOver) return;
 
-    // Find the lowest empty cell in the column
     const newGrid = [...grid];
     for (let row = ROWS - 1; row >= 0; row--) {
       if (!newGrid[row][column]) {
-        newGrid[row] = [...newGrid[row]]; // avoid mutating the original row
+        newGrid[row] = [...newGrid[row]];
         newGrid[row][column] = currentPlayer;
         break;
       }
@@ -29,24 +29,36 @@ const GameBoard: React.FC = () => {
 
     setGrid(newGrid);
 
-    // Check for a winner
     if (checkWinner(newGrid, currentPlayer)) {
       setIsGameOver(true);
-      alert(`${currentPlayer} wins!`);
+      setTimeout(() => {
+        setPopupMessage(`${currentPlayer} wins!`);
+      }, 1000);
       return;
     }
 
-    // Switch players
+    if (isGridFull()) {
+      setIsGameOver(true);
+      setTimeout(() => {
+        setPopupMessage(`It's a draw!`);
+      }, 1000);
+      return;
+    }
+
     setCurrentPlayer(currentPlayer === "Red" ? "Yellow" : "Red");
   };
 
+  // Check if the grid is full
+  const isGridFull = () => {
+    return grid.every((row) => row.every((cell) => cell !== null));
+  };
+
+  // Check for a winning combination
   const checkWinner = (grid: Player[][], player: Player): boolean => {
-    // Horizontal, vertical, and diagonal checks
     const checkLine = (a: Player, b: Player, c: Player, d: Player) => {
       return a === player && b === player && c === player && d === player;
     };
 
-    // Check all rows, columns, and diagonals
     for (let row = 0; row < ROWS; row++) {
       for (let col = 0; col < COLUMNS; col++) {
         if (
@@ -100,22 +112,38 @@ const GameBoard: React.FC = () => {
     return false;
   };
 
+  // Reset game state
+  const resetGame = () => {
+    setGrid(Array(ROWS).fill(Array(COLUMNS).fill(null)));
+    setCurrentPlayer("Red");
+    setIsGameOver(false);
+    setPopupMessage(null); // Close popup on reset
+  };
+
   return (
-    <div className="board">
-      {grid.map((row, rowIndex) => (
-        <div key={rowIndex} className="row">
-          {row.map((cell, colIndex) => (
-            <Cell
-              key={colIndex}
-              value={cell}
-              onClick={() => handleClick(colIndex)}
-            />
-          ))}
-        </div>
-      ))}
-      {isGameOver && (
-        <button onClick={() => window.location.reload()}>Restart</button>
-      )}
+    <div>
+      <div className="flex justify-center py-10">
+        <h2>
+          {isGameOver ? "Game Over!" : `Current Player: ${currentPlayer}`}
+        </h2>
+      </div>
+      <div className="board">
+        {grid.map((row, rowIndex) => (
+          <div key={rowIndex} className="row">
+            {row.map((cell, colIndex) => (
+              <Cell
+                key={colIndex}
+                value={cell}
+                onClick={() => handleClick(colIndex)}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="h-[40px] flex justify-center py-10">
+        {/* Show the popup when there is a message */}
+        {popupMessage && <Popup message={popupMessage} onClose={resetGame} />}
+      </div>
     </div>
   );
 };

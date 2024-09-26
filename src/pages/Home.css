@@ -1,17 +1,10 @@
-.background{
-    @apply bg-gradient-to-r from-cyan-500 to-blue-500
-}
-
-.container{
-    @apply flex flex-col mx-auto items-center justify-center h-screen gap-8
-}
 
 .container h1 {
-    @apply text-4xl font-bold text-white
+    @apply text-4xl font-bold text-white font-sans
 }
 
 .primary-button{
-    @apply px-[8rem] py-1 text-[1.5rem]
+    @apply px-[8rem] py-1 text-[1.5rem] font-sans
 }
 
 .primary-button:hover{

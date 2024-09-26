@@ -5,7 +5,7 @@ import "../App.css";
 const Cell: React.FC<CellProps> = ({ value, onClick }) => {
   return (
     <div className="cell" onClick={onClick}>
-      <div className={`disc ${value ? value.toLowerCase() : ""}`}></div>
+      <div className={`disc  ${value ? value.toLowerCase() : ""}`}></div>
     </div>
   );
 };
